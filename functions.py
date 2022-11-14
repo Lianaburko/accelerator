@@ -3,6 +3,37 @@ import json
 from itertools import permutations
 import time
 
+#-------------------------------------------------------------------------------------------------------------------------------
+# function for creating priority dict 
+# reading from the file             
+def import_signs():
+    signs_dict = {}
+    with open("/home/paro/Desktop/project/signs.txt") as file:
+        for line in file:
+            signs_dict[line[2]] = int(line[0])
+    
+    return signs_dict
+
+#-------------------------------------------------------------------------------------------------------------------------------
+def make_string(l):
+    s = ''
+    for i in l:
+        s += str(i)
+    return s
+
+
+def make_vars_string(l):
+    s = ''
+    for i in l:
+        if i not in '"][+-*/^(), ' + all_signs:
+            s += str(i)
+    return s
+#-------------------------------------------------------------------------------------------------------------------------------
+
+signs = import_signs().keys() 
+all_signs = make_string(signs) + '()'
+
+ 
 # function for getting list of variables
 def get_list_of_vars(s):
     list_vars = []
@@ -10,7 +41,7 @@ def get_list_of_vars(s):
     i = 0 
     while i < len(s):
         l_s = ''
-        while i < len(s) and s[i] not in '+-*/()': # Можно сделать ключи co словаря с операциями
+        while i < len(s) and s[i] not in all_signs: 
             l_s += s[i]
             i += 1
         i += 1
@@ -43,7 +74,7 @@ def order_of_vars(l_s):
 def get_list_of_signs(s):
     list_signs = []
     for i in s:
-        if i in '+-/*()':
+        if i in all_signs:
             list_signs.append(i)
 
     return list_signs
@@ -56,7 +87,7 @@ def get_list_of_all_expr(s):
     i = 0 
     while i < len(s):
         l_s = ''
-        while i < len(s) and s[i] not in '+-*/()': # Можно сделать ключи co словаря с операциями
+        while i < len(s) and s[i] not in all_signs: 
             l_s += s[i]
             i += 1
         if l_s != '':
@@ -67,18 +98,7 @@ def get_list_of_all_expr(s):
      
     return list_expr
 
-#-------------------------------------------------------------------------------------------------------------------------------
-# function for creating priority dict 
-# reading from the file             
-def import_signs():
-    signs_dict = {}
-    with open("/home/paro/Desktop/project/signs.txt") as file:
-        for line in file:
-            signs_dict[line[2]] = int(line[0])
-    
-    return signs_dict
 
-#-------------------------------------------------------------------------------------------------------------------------------
 
 def creating_per_dict():
     priority = import_signs()
@@ -113,13 +133,13 @@ def make_string(l):
 def make_vars_string(l):
     s = ''
     for i in l:
-        if i not in '"][+-*/^(), ':
+        if i not in ('"][+-*/^(), ' + all_signs):
             s += str(i)
     return s
 #-------------------------------------------------------------------------------------------------------------------------------
 def get_sign(s):
     for i in s:
-        if i in '+-/*()':
+        if i in all_signs:
             return i 
 #-------------------------------------------------------------------------------------------------------------------------------
 def choose_size(N,num):
@@ -212,7 +232,7 @@ def vars_without_numbers(s):
     i = 0 
     while i < len(s):
         l_s = ''
-        while i < len(s) and s[i] not in '+-*/()1234567890': # Можно сделать ключи co словаря с операциями
+        while i < len(s) and s[i] not in ('1234567890'+all_signs):
             l_s += s[i]
             i += 1
         i += 1

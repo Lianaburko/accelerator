@@ -9,8 +9,14 @@ inp_s = file.readline()
 
 print('inp is ',inp_s)
 
+
+signs = functions.import_signs().keys() 
+all_signs_br = functions.make_string(signs) + '()'
+all_signs = functions.make_string(signs)
+
+
 inp_s = 'a*b*(3+x)+c'
-signs_string = '*/+-()^'
+signs_string = all_signs_br
 alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 unknowns = []
 signs = []
@@ -18,6 +24,12 @@ level = 0
 n = 0 #number of var 
 level_dict = {} 
 per_dict = {}
+
+expected_lvl_amount = int(input())
+
+
+print(expected_lvl_amount)
+
 
 prior_dict = functions.creating_per_dict()[0]
 unar_sign = functions.creating_per_dict()[1]
@@ -45,7 +57,7 @@ def recurs(s):
         level_permens = []
 # -------------- nado menyat' tut ------------------------------------------
         for i in range(len(s)-1):
-            if i > 0 and i < len(s) - 1 and s[i] in '+-*/^':
+            if i > 0 and i < len(s) - 1 and s[i] in all_signs:
                 if (s[i-2]) not in '()' and (s[i+2]) not in '()':
                     if (pr(s[i-2]) <= pr(s[i])) and (pr(s[i+2]) <= pr(s[i])):
                         if s[i-1:i+2] != '' and ('(' not in s[i-1:i+2]) and (')' not in s[i-1:i+2]):

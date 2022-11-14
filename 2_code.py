@@ -10,7 +10,12 @@ import json
 #inp_s = input()
 inp_s = 'a*b*x+3*a*b+c'
 
-signs_string = '*/+-()^'
+signs = functions.import_signs().keys() 
+all_signs_br = functions.make_string(signs) + '()'
+all_signs = functions.make_string(signs)
+
+
+signs_string = all_signs_br
 alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 unknowns = []
 signs = []
@@ -27,8 +32,7 @@ print('un is ',unar_sign)
 prior_per_dict = {} 
  
 #+++++++++++++++++++++++++
-amount_of_operands = 2 # here we enter amount of operands 
-level_restriction = 2 # amout of vars per level 
+amount_of_operands , level_restriction, expected_lvl_amount = map(int, (input().split()))
 
 #! vars_order = order_of_vars(vars_without_numbers(inp_s)) # hier only vars
 #! print(vars_order)
@@ -59,7 +63,7 @@ def recurs(s):
     unknowns_without_nums = functions.vars_without_numbers(s)
     print('\nhello ',unknowns_without_nums)
 
-    time.sleep(2)
+    #time.sleep(2)
 
     while(len(unknowns) > 1):
         level += 1
@@ -70,7 +74,7 @@ def recurs(s):
 
 # -------------- nado menyat' tut ------------------------------------------
         for i in range(len(s)-1):
-            if i > 0 and i < len(s) - 1 and s[i] in '+-*/^':
+            if i > 0 and i < len(s) - 1 and s[i] in all_signs:
                 if (s[i-2]) not in '()' and (s[i+2]) not in '()':
                     if (pr(s[i-2]) <= pr(s[i])) and (pr(s[i+2]) <= pr(s[i])):
                         if s[i-1:i+2] != '' and ('(' not in s[i-1:i+2]) and (')' not in s[i-1:i+2]):
@@ -87,7 +91,7 @@ def recurs(s):
                                         av_vars.add(s[i+1])
                                     prior_dict[pr(s[i])].append(s[i-1:i+2])
                                 elif (s[i-1] in av_vars or s[i-1] in '1234567890') and (s[i+1] in av_vars or s[i-1] in '1234567890'): 
-                                    time.sleep(1)
+                                    #time.sleep(1)
                                     prior_dict[pr(s[i])].append(s[i-1:i+2])
 
                 

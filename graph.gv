@@ -3,22 +3,27 @@ node [shape=record, style="rounded,filled"];
 {
 node[shape=plaintext, fillcolor=snow];
 edge[color=white];
-level1->level2->level3;
+level1->level2->level3->level4->level5;
 }
-fun [label="<f0> 3|<f1> x|<f2> a|<f3> b|<f4> c", fillcolor=turquoise];
-struct0 [label="<f0> A|<f1> = 3+x", fillcolor=darkolivegreen1];
-struct1 [label="<f0> B|<f1> = a*b", fillcolor=darkolivegreen1];
-{rank = same; level1;  struct0; struct1;}
-struct2 [label="<f0> C|<f1> = B*A", fillcolor=gold];
-{rank = same; level2;  struct2;}
-struct3 [label="<f0> D|<f1> = C+c", fillcolor=tomato];
-{rank = same; level3;  struct3;}
+fun [label="<f0> a|<f1> b|<f2> x|<f3> 3|<f4> c", fillcolor=turquoise];
+struct0 [label="<f0> A|<f1> = a*b", fillcolor=darkolivegreen1];
+{rank = same; level1;  struct0;}
+struct1 [label="<f0> B|<f1> = A*x", fillcolor=gold];
+{rank = same; level2;  struct1;}
+struct2 [label="<f0> C|<f1> = 3*A", fillcolor=tomato];
+{rank = same; level3;  struct2;}
+struct3 [label="<f0> D|<f1> = B+C", fillcolor=deepskyblue];
+{rank = same; level4;  struct3;}
+struct4 [label="<f0> E|<f1> = D+c", fillcolor=palegreen];
+{rank = same; level5;  struct4;}
 fun:f0->struct0:f0;
 fun:f1->struct0:f0;
+struct0:f0->struct1:f0;
 fun:f2->struct1:f0;
-fun:f3->struct1:f0;
-struct1:f0->struct2:f0;
+fun:f3->struct2:f0;
 struct0:f0->struct2:f0;
+struct1:f0->struct3:f0;
 struct2:f0->struct3:f0;
-fun:f4->struct3:f0;
+struct3:f0->struct4:f0;
+fun:f4->struct4:f0;
 }

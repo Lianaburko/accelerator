@@ -10,7 +10,11 @@ import json
 #inp_s = input()
 inp_s = 'a*b*x+3*a*b+c'
 
-signs_string = '*/+-()^'
+signs = functions.import_signs().keys() 
+all_signs_br = functions.make_string(signs) + '()'
+all_signs = functions.make_string(signs)
+
+signs_string = all_signs_br
 alf = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 unknowns = []
 signs = []
@@ -27,8 +31,7 @@ print('un is ',unar_sign)
 prior_per_dict = {} 
  
 #+++++++++++++++++++++++++
-amount_of_entries = 1 # here we enter amount of entries 
-level_restriction = 1 # amout of vars per level 
+amount_of_entries, level_restriction, expected_lvl_amount = map(int, (input().split())) # here we enter amount of entries  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #! vars_order = order_of_vars(vars_without_numbers(inp_s)) # hier only vars
 #! print(vars_order)
@@ -76,14 +79,14 @@ def recurs(s):
 
 # -------------- nado menyat' tut ------------------------------------------
         for i in range(len(s)-1):
-            if i > 0 and i < len(s) - 1 and s[i] in '+-*/^':
+            if i > 0 and i < len(s) - 1 and s[i] in all_signs:
                 if (s[i-2]) not in '()' and (s[i+2]) not in '()':
                     if (pr(s[i-2]) <= pr(s[i])) and (pr(s[i+2]) <= pr(s[i])):
                         if s[i-1:i+2] != '' and ('(' not in s[i-1:i+2]) and (')' not in s[i-1:i+2]):
                             if s[i-1] in av_vars and s[i+1] in av_vars: ####################################################
                                 prior_dict[pr(s[i])].append(s[i-1:i+2])
                 
-                if (s[i] == '-') and (s[i-1] in "+-*/^") and (s[i+2] in "+-*/^"):
+                if (s[i] == '-') and (s[i-1] in all_signs) and (s[i+2] in all_signs):
                     if s[i-1] in av_vars and s[i+1] in av_vars: ###########################################################
                         prior_dict[unar_sign].append(s[i:i+2])
 

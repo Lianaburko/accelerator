@@ -31,9 +31,9 @@ print(levels_dict)
 #time.sleep(10)
 
 size_dict = functions_for_rtl.size_dict(N, vars_list, per_dict)
-size_dict['2'] = 2 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 size_dict['3'] = 2 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-size_dict['4'] = 2 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 last_key, last_value = functions.last_element(size_dict)
 times = ceil(last_value/N)

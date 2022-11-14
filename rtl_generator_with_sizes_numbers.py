@@ -27,15 +27,10 @@ levels_dict[lst_key] = lst_value
 
 
 size_dict = functions_for_rtl.size_dict(N, vars_list, per_dict)
-size_dict['2'] = 2  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 size_dict['3'] = 2  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-size_dict['4'] = 2  #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 last_key, last_value = functions.last_element(size_dict)
-
 times = ceil(last_value/N)
 amount = int(log2(len(vars_list)+times)) + 1 
-
 bit_row = functions.bit_amount(amount)
 #------------------------------------------------
 
@@ -51,7 +46,7 @@ with open('/home/paro/Desktop/project/rtl.v','w') as inf:
 
         level_of_var = lvl(k)
         max_level_of_var = levels_dict[k]
-        level_of_var = 0
+        #level_of_var = 0
 
         s_2 = functions_for_rtl.making_s_2(k, v, level_of_var, vars_list, per_dict) #
         t_size = size_dict[k]
@@ -60,7 +55,7 @@ with open('/home/paro/Desktop/project/rtl.v','w') as inf:
         lvl_v = level_of_var
         level_of_var = functions_for_rtl.wire_register(inf, max_level_of_var, t_size, k, lvl_v) #
 
-    i = functions_for_rtl.registers_CORRECT_NAME(inf, N, times, last_key, level_of_var)
+    i = functions_for_rtl.registers_RF_res(inf, N, times, last_key, level_of_var)
     i += 1
 
     s_0 = '\nwire [N-1:0] RF_Res_'+ str(i-1) + ';\n'
