@@ -1,6 +1,7 @@
 #!/bin/bash
 
 const_is_var = "0"
+with_size = "0"
 
 while [ -n "$1" ]
 do
@@ -11,6 +12,7 @@ case "$1" in
 -op-per-lvl) op_per_lvl="$2";;
 -res-per-lvl) res_per_lvl="$2";;
 -stages-res) stages_res="$2";;
+-with-size) with_size="1";;
 esac
 shift
 done
@@ -24,5 +26,21 @@ esac
 python3 graph_viziualize.py
 dot -Tpng -O graph.gv
 
-if [ "$rtl_type" = "0" && "$const_is_var" = "0"]; then
-    python3 rtl_generator_with_sizes_numbers.py
+# with_size = "0" - without size
+# with_size = "1" - with size
+
+if [[ "$rtl_type" = "0"]] && [["$with_size" = "0"]] then
+    rtl_00_generator_without_sizes_odn.py 
+fi
+
+if [[ "$rtl_type" = "0"]] && [["$with_size" = "1"]] then
+    rtl_01_generator_with_sizes_numbers.py 
+fi
+
+if [[ "$rtl_type" = "1"]] && [["$with_size" = "0"]] then
+   rtl_10_generator_without_sizes.py 
+fi
+
+if [[ "$rtl_type" = "1"]] && [["$with_size" = "1"]] then
+    rtl_11_generator_with_sizes.py 
+fi
